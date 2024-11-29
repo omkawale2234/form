@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #090909;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            background-color: #34c759;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #28a745;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Registration Form</h2>
+        <form id="registrationForm" onsubmit="return validateForm()">
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+            <span class="error" id="nameError"></span>
+
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" name="mobileNumber" placeholder="Enter your mobile number">
+            <span class="error" id="mobileError"></span>
+
+            <label for="email">Email ID:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email ID">
+            <span class="error" id="emailError"></span>
+
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+            <span class="error" id="dobError"></span>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        
+        function validateForm() {
+            
+            const fullName = document.getElementById("fullName").value;
+            const mobileNumber = document.getElementById("mobileNumber").value;
+            const email = document.getElementById("email").value;
+            const dob = document.getElementById("dob").value;
+
+            
+            const nameRegex = /^[a-zA-Z ]+$/;
+            const mobileRegex = /^[0-9]{10}$/;
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+            let valid = true;
+
+            
+            if (fullName === "" || !nameRegex.test(fullName)) {
+                document.getElementById("nameError").innerText = "Please enter a valid name (letters and spaces only).";
+                valid = false;
+            } else {
+                document.getElementById("nameError").innerText = "";
+            }
+
+            
+            if (!mobileRegex.test(mobileNumber)) {
+                document.getElementById("mobileError").innerText = "Please enter a valid 10-digit mobile number.";
+                valid = false;
+            } else {
+                document.getElementById("mobileError").innerText = "";
+            }
+
+           
+            if (!emailRegex.test(email)) {
+                document.getElementById("emailError").innerText = "Please enter a valid email address.";
+                valid = false;
+            } else {
+                document.getElementById("emailError").innerText = "";
+            }
+
+            
+            if (dob === "") {
+                document.getElementById("dobError").innerText = "Please select your date of birth.";
+                valid = false;
+            } else {
+                document.getElementById("dobError").innerText = "";
+            }
+
+            
+            return valid;
+        }
+    </script>
+
+</body>
+</html>
